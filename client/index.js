@@ -26,7 +26,14 @@ function init() {
     ws.onopen = () => console.log('!Connection opened!')
 
     // handle a message event
-    ws.onmessage = (e) => showMessage(JSON.parse(e.data))
+    ws.onmessage = (e) => {
+        // blob reader
+        var reader = new FileReader();
+        reader.onload = function() {
+            showMessage(reader.result)
+        }
+        reader.readAsText(e.data)
+    }
 
     // Handle a close event
     ws.onclose = () => ws = null
