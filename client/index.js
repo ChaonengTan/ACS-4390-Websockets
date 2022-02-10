@@ -2,6 +2,7 @@
 const sendBtn = document.querySelector('#send')
 const messages = document.querySelector('#messages')
 const messageInput = document.querySelector('#message-input')
+const username = document.querySelector('#username')
 
 let ws
 
@@ -51,7 +52,8 @@ sendBtn.onclick = function () {
         showMessage("No WebSocket connection :(");
         return;
     }
-    ws.send(messageInput.value);
-    showMessage(messageInput.value);
+    const newMessage = `${username.value}: ${messageInput.value}`
+    ws.send(newMessage);
+    showMessage(newMessage);
 }
 init();
