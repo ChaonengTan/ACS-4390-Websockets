@@ -35,7 +35,9 @@ function init() {
         // blob reader
         var reader = new FileReader();
         reader.onload = function() {
-            showMessage(reader.result)
+            const data = JSON.parse(reader.result)
+            data.date = new Date(data.date)
+            showMessage(`${data.date.getHours()}:${data.date.getMinutes()} ${data.username}: ${data.message}`)
         }
         reader.readAsText(e.data)
     }
@@ -52,8 +54,8 @@ sendBtn.onclick = function () {
         showMessage("No WebSocket connection :(");
         return;
     }
-    const newMessage = `${username.value}: ${messageInput.value}`
-    ws.send(newMessage);
-    showMessage(newMessage);
+    const data = { message: messageInput.value, username: username.value, date: new Date() }
+    ws.send(JSON.stringify(data))
+    showMessage(`${data.date.getHours()}:${data.date.getMinutes()} ${data.username}: ${data.message}`)
 }
 init();
