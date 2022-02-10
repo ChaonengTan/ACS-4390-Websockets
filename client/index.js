@@ -7,7 +7,11 @@ let ws
 
 // Display messages from the websocket
 function showMessage(message) {
-    messages.innerHTML += `${message}\n\n` // display the message
+    const newMessage = document.createElement('li')
+
+    // messages.innerHTML += `${message}\n\n` // display the message
+    newMessage.appendChild(document.createTextNode(`${message}`))
+    messages.appendChild(newMessage)
     messages.scrollTop = messages.scrollHeight // scroll to the top
     messageInput.value = '' // clear the input field
   }
